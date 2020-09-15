@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         $usr->save();
 
         // Factory
-        factory(User::class, 40000)->create();
+        factory(User::class, 10)->create();
 
     }
 }

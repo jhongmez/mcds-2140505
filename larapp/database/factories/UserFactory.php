@@ -18,15 +18,26 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+
+    $gender = $faker->randomElement($array = array('Female', 'Male'));
+    $photo  = $faker->image('public/imgs', 140, 140, 'people');
+
+    if($gender == 'Female') {
+        $name = $faker->firstNameFemale();
+    } else {
+        $name = $faker->firstNameMale();
+    }
+
     return [
-        'fullname'          => $faker->name,
+        'gender'            => $gender,
+        'fullname'          => $name.' '.$faker->lastName(),
         'email'             => $faker->unique()->safeEmail,
-        'phone'             => 123456,
-        'birthdate'         => '1990-10-11',
-        'gender'            => 'F',
-        'address'           => 'Cra 11-12',
+        'phone'             => $faker->numberBetween($min= 3101000000, $max= 3202000000),
+        'birthdate'         => $faker->dateTimeBetween($starDate = '-60 years', $endDate = '-21 years'),
+        'address'           => $faker->streetAddress(),
+        'photo'             => substr($photo, 7),
         'email_verified_at' => now(),
-        'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token'    => Str::random(10),
+        'password'          => bcrypt('editor'),
+        'remember_token'    => Str::random(2),
     ];
 });
