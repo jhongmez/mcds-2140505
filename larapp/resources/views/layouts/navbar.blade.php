@@ -27,15 +27,15 @@
                                     <img src="{{asset('imgs/es.png')}}" width="20px"> Español
                                     @break
                                 @default
-                                    <img src="{{asset('imgs/en.png')}}" width="20px"> English
+                                    <img src="{{asset('imgs/es.png')}}" width="20px"> Español
                             @endswitch
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('/en') }}">
+                            <a class="dropdown-item" href="{{ url('locale/en') }}">
                                 <img src="{{asset('imgs/en.png')}}" width="20px"> English
                             </a>
-                            <a class="dropdown-item" href="{{ url('/es') }}">
+                            <a class="dropdown-item" href="{{ url('locale/es') }}">
                                 <img src="{{asset('imgs/es.png')}}" width="20px"> Español
                             </a>
                         </div>
@@ -57,14 +57,14 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->fullname }}
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                @lang('general.link-close')
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -24,4 +24,6 @@ return [
     // Reset Password Page
     'title-reset-password' => 'Restablecer Contraseña',
     'btn-reset-password'   => 'Enviar Enlace Restablecimiento Contraseña',
+    // NavBar
+    'link-close' => 'Cerrar Sesión',
 ];
