@@ -10,7 +10,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('home') }}">
+                            <i class="fa fa-clipboard-list"></i> 
+                            @lang('general.link-dashboard')
+                        </a>
+                    </li>
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -41,7 +48,7 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item"><span class="nav-link">|</span></li>
+                    <li class="nav-item d-none d-sm-block"><span class="nav-link">|</span></li>
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
@@ -50,7 +57,7 @@
                             @lang('general.link-login')
                         </a>
                     </li>
-                    <li class="nav-item"><span class="nav-link">|</span></li>
+                    <li class="nav-item d-none d-sm-block"><span class="nav-link">|</span></li>
                     @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">
@@ -69,6 +76,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
+                                <i class="fa fa-times"></i> 
                                 @lang('general.link-close')
                             </a>
 
