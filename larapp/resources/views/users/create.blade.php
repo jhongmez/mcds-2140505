@@ -1,35 +1,16 @@
 @extends('layouts.app')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card">
-                <img src="{{ asset('imgs/bg-register.svg') }}" width="300px" class="my-2 img-top-card">
-                <div class="card-header text-uppercase text-center">
-                    <h5>
-                        <i class="fa fa-user-edit"></i> 
-                        @lang('general.title-register')
-                    </h5>
-                </div>
+@section('title', 'Crear Usuario')
 
-                {{-- <div class="row mt-4">
-                    <div class="col-md-8 offset-md-2">
-                        @if ($errors->any())
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                              @foreach ($errors->all() as $message)
-                                    <li>{{ $message }}</li>
-                            @endforeach
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                        @endif
-                    </div>
-                </div> --}}
-            
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+@section('content')
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<h1>
+				<i class="fa fa-plus"></i> 
+				Adicionar Usuarios
+			</h1>
+			<hr>
+			<form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                                 <input id="fullname" type="text" class="form-control @error('fullname') is-invalid @enderror" name="fullname" value="{{ old('fullname') }}" placeholder="@lang('general.label-fullname')" autofocus>
@@ -96,6 +77,22 @@
                         </div>
 
                         <div class="form-group">
+                                <div class="custom-file">
+                                   <input type="file" class="custom-file-input @error('photo') is-invalid @enderror" id="photo" name="photo" accept="image/*">
+                                   <label class="custom-file-label" for="customFile"> 
+                                   	 <i class="fa fa-upload"></i> 
+                                   	 Foto
+                                   </label>
+                                </div>
+
+                                @error('photo')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
+
+                        <div class="form-group">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="@lang('general.label-password')">
 
                                 @error('password')
@@ -111,14 +108,11 @@
 
                         <div class="form-group">
                                 <button type="submit" class="btn btn-larapp btn-block text-uppercase">
-                                    @lang('general.btn-register')
+                                    Adicionar
                                     <i class="fa fa-save"></i> 
                                 </button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+		</div>
+	</div>
 @endsection

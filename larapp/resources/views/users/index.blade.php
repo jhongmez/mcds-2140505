@@ -4,7 +4,7 @@
 @section('content')
 	<div class="row">
 		<div class="col-md-10 offset-md-1">
-			<h1> <i class="fa fa-users"></i> Lista de Usuarios</h1>
+			<h1> <i class="fa fa-users"></i> Lista de Usuarios </h1>
 			<hr>
 			<a href="{{ url('users/create') }}" class="btn btn-success"> 
 				<i class="fa fa-plus"></i>
@@ -37,6 +37,7 @@
 					@endforeach
 				</tbody>
 			</table>
+			{{ $users->links() }}
 		</div>
 	</div>
 @endsection
