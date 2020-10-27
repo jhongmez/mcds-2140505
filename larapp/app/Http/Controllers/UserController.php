@@ -95,7 +95,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        dd($request->all());
+        //dd($request->all());
         $user->fullname  = $request->fullname;
         $user->email     = $request->email;
         $user->phone     = $request->phone;
@@ -121,6 +121,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if($user->delete()) {
+            return redirect('users')->with('message', 'El Usuario: '.$user->fullname.' fue Eliminado con Exito!');
+        } 
     }
 }
