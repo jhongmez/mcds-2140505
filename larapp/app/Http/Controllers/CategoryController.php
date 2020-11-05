@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+    public function __construct() 
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $cats = Category::paginate(10);
+        return view('categories.index')->with('cats', $cats);
     }
 
     /**
@@ -23,7 +30,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -32,9 +39,21 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        //dd($request->all());
+        $cat = new Category;
+        $cat->name        = $request->name;
+        $cat->description = $request->description;
+        if ($request->hasFile('image')) {
+            $file = time().'.'.$request->image->extension();
+            $request->image->move(public_path('imgs'), $file);
+            $cat->image = 'imgs/'.$file;
+        }
+
+        if($cat->save()) {
+            return redirect('categories')->with('message', 'La Categoría: '.$cat->name.' fue Adicionada con Exito!');
+        } 
     }
 
     /**
@@ -45,7 +64,8 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        $cat = Category::find($id);
+        return view('categories.show')->with('cat', $cat);
     }
 
     /**
@@ -56,7 +76,8 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat = Category::find($id);
+        return view('categories.edit')->with('cat', $cat);
     }
 
     /**
@@ -66,9 +87,20 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $cat = Category::find($id);
+        $cat->name        = $request->name;
+        $cat->description = $request->description;
+        if ($request->hasFile('image')) {
+            $file = time().'.'.$request->image->extension();
+            $request->image->move(public_path('imgs'), $file);
+            $cat->image = 'imgs/'.$file;
+        }
+
+        if($cat->save()) {
+            return redirect('categories')->with('message', 'La Categoría: '.$cat->name.' fue Modificada con Exito!');
+        }
     }
 
     /**
@@ -79,6 +111,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cat = Category::find($id);
+        if($cat->delete()) {
+            return redirect('categories')->with('message', 'La Categoría: '.$cat->name.' fue Eliminada con Exito!');
+        } 
     }
 }

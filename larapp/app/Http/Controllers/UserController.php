@@ -60,7 +60,6 @@ class UserController extends Controller
         if($user->save()) {
             return redirect('users')->with('message', 'El Usuario: '.$user->fullname.' fue Adicionado con Exito!');
         } 
-
     }
 
     /**
