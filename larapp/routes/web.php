@@ -57,6 +57,10 @@ Route::get('generate/pdf/users', 'UserController@pdf');
 Route::get('generate/excel/users', 'UserController@excel');
 // Import Excel
 Route::post('import/excel/users', 'UserController@import');
+// Search Scope
+Route::post('users/search', 'UserController@search');
+
+
 
 // Middleware
 Route::get('locale/{locale}', 'LocaleController@index');
