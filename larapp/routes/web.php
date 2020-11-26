@@ -44,12 +44,17 @@ Route::get('challenge', function () {
 
 Auth::routes();
 
-// Resources
-Route::resources([
-    'users'       => 'UserController',
-    'categories'  => 'CategoryController',
-    'games'       => 'GameController',
-]);
+// Group Middleware
+Route::group(['middleware' => 'admin'], function() {
+    // Resources
+    Route::resources([
+        'users'       => 'UserController',
+        'categories'  => 'CategoryController',
+        'games'       => 'GameController',
+    ]);
+});
+
+
 
 // Export PDF
 Route::get('generate/pdf/users', 'UserController@pdf');
